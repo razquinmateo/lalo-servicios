@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "nombre": "Retroexcavadora CAT 420F",
+    "tipo": "Retroexcavadora",
+    "estado": "Disponible",
+    "modo": "Alquiler",
+    "imagen": "img/retroexcavadora.jpg",
+    "descripcion": "Retroexcavadora con gran potencia, ideal para movimientos de tierra pesados."
+  },
+  {
+    "id": 2,
+    "nombre": "Andamio Metálico Modular",
+    "tipo": "Andamio",
+    "estado": "Disponible",
+    "modo": "Venta",
+    "imagen": "img/andamio.jpg",
+    "descripcion": "Andamio resistente y seguro para trabajos en altura."
+  },
+  {
+    "id": 3,
+    "nombre": "Hormigonera 300L",
+    "tipo": "Hormigonera",
+    "estado": "En reparación",
+    "modo": "Alquiler",
+    "imagen": "img/hormigonera.jpg",
+    "descripcion": "Hormigonera eléctrica ideal para pequeñas obras."
+  },
+  {
+    "id": 4,
+    "nombre": "Plataforma Elevadora Genie",
+    "tipo": "Plataforma",
+    "estado": "Disponible",
+    "modo": "Alquiler",
+    "imagen": "img/plataforma.png",
+    "descripcion": "Plataforma elevadora de tijera con alcance de hasta 12 metros."
+  },
+  {
+    "id": 5,
+    "nombre": "Compactadora Vibratoria Bomag",
+    "tipo": "Compactadora",
+    "estado": "Disponible",
+    "modo": "Venta",
+    "imagen": "img/compactadora.jpg",
+    "descripcion": "Compactadora para suelos con excelente rendimiento y maniobrabilidad."
+  }
+]
