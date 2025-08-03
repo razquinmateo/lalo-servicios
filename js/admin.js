@@ -9,14 +9,18 @@ function mostrarOpcionesAdmin() {
   // Insertar botones dentro del contenedor del carrusel
   const carruselContenedor = document.querySelector("#carruselMaquinarias");
   const botonesAdmin = document.createElement("div");
-  botonesAdmin.className = "text-end mb-3";
+  botonesAdmin.className = "d-flex justify-content-center gap-3 mb-4 flex-wrap";
 
   botonesAdmin.innerHTML = `
-    <button class="btn btn-outline-success me-2" id="agregarMaquinaria">Agregar Maquinaria</button>
-    <button class="btn btn-outline-danger me-2" id="editarMaquinas">Editar Maquinarias</button>
-  `;
+  <button class="btn btn-outline-success flex-fill" style="min-width: 180px;" id="agregarMaquinaria">
+    Agregar Maquinaria
+  </button>
+  <button class="btn btn-outline-danger flex-fill" style="min-width: 180px;" id="editarMaquinas">
+    Editar Maquinarias
+  </button>
+`;
 
-  const titulo = document.querySelector('h2.text-center.mb-4');
+  const titulo = document.querySelector("h2.text-center.mb-4");
   titulo.insertAdjacentElement("afterend", botonesAdmin);
 
   // Eventos
@@ -24,23 +28,34 @@ function mostrarOpcionesAdmin() {
     mostrarEditorMaquinarias();
   });
 
-  document.getElementById("agregarMaquinaria").addEventListener("click", mostrarFormularioNuevaMaquinaria);
+  document
+    .getElementById("agregarMaquinaria")
+    .addEventListener("click", mostrarFormularioNuevaMaquinaria);
 }
 
 function mostrarEditorMaquinarias() {
   Promise.all([
-    fetch("data/maquinarias.json").then(res => res.json()),
-    fetch("data/imagenes.json").then(res => res.json())
+    fetch("data/maquinarias.json").then((res) => res.json()),
+    fetch("data/imagenes.json").then((res) => res.json()),
   ]).then(([maquinarias, imagenes]) => {
-    const lista = maquinarias.map((maq, i) => {
-      const opciones = imagenes.map(img => `
-        <option value="${img}" ${img === maq.imagen ? "selected" : ""}>${img}</option>
-      `).join("");
+    const lista = maquinarias
+      .map((maq, i) => {
+        const opciones = imagenes
+          .map(
+            (img) => `
+        <option value="${img}" ${
+              img === maq.imagen ? "selected" : ""
+            }>${img}</option>
+      `
+          )
+          .join("");
 
-      return `
+        return `
         <div class="mb-4 border rounded p-3" data-index="${i}">
           <h5>${maq.nombre}</h5>
-          <input type="text" class="form-control mb-2" value="${maq.descripcion}" data-campo="descripcion" placeholder="Descripción">
+          <input type="text" class="form-control mb-2" value="${
+            maq.descripcion
+          }" data-campo="descripcion" placeholder="Descripción">
 
           <select class="form-select mb-2 selector-imagen" data-campo="imagen">
             <option disabled>Seleccioná una imagen</option>
@@ -48,22 +63,34 @@ function mostrarEditorMaquinarias() {
           </select>
 
           <div class="vista-previa text-center mb-2">
-            <img src="${maq.imagen}" style="max-height: 120px; border: 1px solid #ccc; border-radius: 4px; padding: 3px;">
+            <img src="${
+              maq.imagen
+            }" style="max-height: 120px; border: 1px solid #ccc; border-radius: 4px; padding: 3px;">
           </div>
 
           <select class="form-select mb-2" data-campo="estado">
-            <option ${maq.estado === "Disponible" ? "selected" : ""}>Disponible</option>
-            <option ${maq.estado === "Alquilada" ? "selected" : ""}>Alquilada</option>
-            <option ${maq.estado === "Vendida" ? "selected" : ""}>Vendida</option>
-            <option ${maq.estado === "En reparación" ? "selected" : ""}>En reparación</option>
+            <option ${
+              maq.estado === "Disponible" ? "selected" : ""
+            }>Disponible</option>
+            <option ${
+              maq.estado === "Alquilada" ? "selected" : ""
+            }>Alquilada</option>
+            <option ${
+              maq.estado === "Vendida" ? "selected" : ""
+            }>Vendida</option>
+            <option ${
+              maq.estado === "En reparación" ? "selected" : ""
+            }>En reparación</option>
           </select>
         </div>
       `;
-    }).join("");
+      })
+      .join("");
 
     Swal.fire({
       title: "Editor de Maquinarias",
       html: `
+        <button class="swal2-close-mobile" onclick="Swal.close()">✕</button>
         <div style="max-height: 400px; overflow-y: auto;">
           ${lista}
         </div>
@@ -72,44 +99,52 @@ function mostrarEditorMaquinarias() {
       willOpen: () => {
         // Mostrar la miniatura al cambiar imagen
         const selects = Swal.getPopup().querySelectorAll(".selector-imagen");
-        selects.forEach(select => {
+        selects.forEach((select) => {
           select.addEventListener("change", (e) => {
-            const preview = select.parentElement.querySelector(".vista-previa img");
+            const preview =
+              select.parentElement.querySelector(".vista-previa img");
             preview.src = e.target.value;
           });
         });
       },
       preConfirm: () => {
         const contenedores = Swal.getPopup().querySelectorAll("[data-index]");
-        contenedores.forEach(div => {
+        contenedores.forEach((div) => {
           const i = div.dataset.index;
           const inputs = div.querySelectorAll("[data-campo]");
 
-          inputs.forEach(input => {
+          inputs.forEach((input) => {
             const campo = input.dataset.campo;
             maquinarias[i][campo] = input.value;
           });
         });
 
         // Guardar en localStorage
-        localStorage.setItem("maquinariasEditadas", JSON.stringify(maquinarias));
+        localStorage.setItem(
+          "maquinariasEditadas",
+          JSON.stringify(maquinarias)
+        );
 
         // Refrescar carrusel
         renderizarCarrusel(maquinarias);
-      }
+      },
     });
   });
 }
 
 function mostrarFormularioNuevaMaquinaria() {
   fetch("data/imagenes.json")
-    .then(res => res.json())
-    .then(imagenes => {
-      const opciones = imagenes.map(img => `<option value="${img}">${img}</option>`).join("");
+    .then((res) => res.json())
+    .then((imagenes) => {
+      const opciones = imagenes
+        .map((img) => `<option value="${img}">${img}</option>`)
+        .join("");
 
       Swal.fire({
-        title: 'Agregar Maquinaria',
+        title: "Agregar Maquinaria",
         html: `
+          <button class="swal2-close-mobile" onclick="Swal.close()">✕</button>
+
           <input type="text" id="nuevoNombre" class="form-control mb-2" placeholder="Nombre">
           <input type="text" id="nuevaDescripcion" class="form-control mb-2" placeholder="Descripción">
           
@@ -144,7 +179,7 @@ function mostrarFormularioNuevaMaquinaria() {
             <option value="Alquiler">Alquiler</option>
           </select>
         `,
-        confirmButtonText: 'Agregar',
+        confirmButtonText: "Agregar",
         didOpen: () => {
           const selectorImagen = document.getElementById("nuevaImagen");
           const previewImg = document.getElementById("preview");
@@ -161,27 +196,38 @@ function mostrarFormularioNuevaMaquinaria() {
         },
         preConfirm: () => {
           const nombre = document.getElementById("nuevoNombre").value.trim();
-          const descripcion = document.getElementById("nuevaDescripcion").value.trim();
+          const descripcion = document
+            .getElementById("nuevaDescripcion")
+            .value.trim();
           const imagen = document.getElementById("nuevaImagen").value;
           const tipo = document.getElementById("nuevoTipo").value;
           const estado = document.getElementById("nuevoEstado").value;
           const modo = document.getElementById("nuevoModo").value;
 
           if (!nombre || !descripcion || !imagen || !tipo || !estado || !modo) {
-            Swal.showValidationMessage('Completá todos los campos');
+            Swal.showValidationMessage("Completá todos los campos");
             return;
           }
 
           const nuevaMaquinaria = {
             id: Date.now(),
-            nombre, descripcion, imagen, tipo, estado, modo
+            nombre,
+            descripcion,
+            imagen,
+            tipo,
+            estado,
+            modo,
           };
 
-          const maquinariasActuales = JSON.parse(localStorage.getItem("maquinariasEditadas")) || [];
+          const maquinariasActuales =
+            JSON.parse(localStorage.getItem("maquinariasEditadas")) || [];
           maquinariasActuales.push(nuevaMaquinaria);
-          localStorage.setItem("maquinariasEditadas", JSON.stringify(maquinariasActuales));
+          localStorage.setItem(
+            "maquinariasEditadas",
+            JSON.stringify(maquinariasActuales)
+          );
           renderizarCarrusel(maquinariasActuales);
-        }
+        },
       });
     });
 }

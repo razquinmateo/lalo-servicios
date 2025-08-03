@@ -48,10 +48,11 @@ LaloServicios/
 ## ✨ Funcionalidades implementadas
 
 ### 👷 Página principal (`index.html`)
+
 - **Sección de bienvenida** con título y descripción.
 - **Carrusel de maquinarias**, agrupadas de a 3 (o 1 en dispositivos móviles).
 - **Vista responsive adaptada** para celulares y tablets.
-- **Modo oscuro** opcional.
+- **Modo oscuro**.
 - **Botón "Volver arriba"** flotante con scroll suave.
 - **Sección "Sobre nosotros"** con descripción y logo.
 - **Mapa embebido de Google Maps**.
@@ -60,14 +61,16 @@ LaloServicios/
 ---
 
 ### 🔒 Sistema de autenticación (simulado)
+
 - Página de **login** con validación de usuario y contraseña contra un archivo `usuarios.json`.
 - Al iniciar sesión, se muestra el saludo personalizado en la barra de navegación.
 - El botón cambia dinámicamente a "Cerrar Sesión".
-- Mensajes de bienvenida y cierre de sesión con **SweetAlert** (sin botón, con auto cierre).
+- Mensajes de bienvenida y cierre de sesión con **SweetAlert**.
 
 ---
 
 ### 🛠️ Panel de administración (modo admin)
+
 Solo accesible si hay sesión iniciada:
 
 - ✅ **Mensaje destacado** indicando que el modo administrador está activo.
@@ -88,6 +91,7 @@ Solo accesible si hay sesión iniciada:
 ## 📲 Responsividad
 
 Adaptado a distintos dispositivos:
+
 - En pantallas pequeñas, el carrusel muestra **una sola tarjeta por slide**.
 - En pantallas grandes, se agrupan de a **tres maquinarias por slide**.
 - Todos los botones están correctamente posicionados y adaptados según el tamaño de pantalla.
@@ -126,5 +130,6 @@ Para simular el login en `login.html`, usá algún usuario definido en `data/usu
 
 ---
 
-## © 2025 - Lalo Servicios
+## © 2025 - Mateo Razquin
+
 Desarrollado como práctica personal y parte de portafolio web.

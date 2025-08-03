@@ -1,12 +1,29 @@
 body {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
+  padding: 20px;
 }
 
 .login-container {
-    max-width: 400px;
-    margin: 80px auto;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  margin: 60px auto;
+  padding: 30px 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 576px) {
+  .login-container {
+    padding: 20px 15px;
+    margin: 40px auto;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .login-container h2 {
+    font-size: 1.25rem;
+  }
 }
